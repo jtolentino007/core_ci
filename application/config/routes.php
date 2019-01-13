@@ -54,6 +54,8 @@ $route['default_controller']    = 'auth';
 $route['user/authenticate']     = 'auth/authenticate';
 $route['logout']                = 'auth/sign_out';
 
+$route['users/get/list']        = 'users/get_users_list';
+$route['user/current']          = 'users/get_current_user';
 $route['user/save']             = 'auth/sign_up';
 $route['user/update']           = 'auth/update';
 $route['user/delete']           = 'auth/delete';

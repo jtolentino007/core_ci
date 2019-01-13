@@ -9,27 +9,28 @@
 	<link rel="stylesheet" href="assets/css/app/style.css"> -->
 	<?= $header; ?>
 </head>
-<body>
+<body style="overflow-y: hidden">
 	<div class="login-form">
 		<div class="col-xs-12 col-sm-offset-4 col-sm-4 col-lg-offset-4 col-lg-4">
+
 			<div class="panel panel-primary" style="border: none;">
-			<div class="panel-heading text-center" style="height: unset;">
-				<h3>LOGIN</h3>
-			</div>
-			<div class="panel-body" style="padding: 7% 15% 15% 15%;">
+			<div class="panel-body" style="padding: 7% 20% 10% 20%;">
+                <div class="text-center">
+                    <h1 style="font-weight: 600;">LOGIN</h1>
+                </div>
+                <br>
 				<form id="frmLogin">
-					<label>E-mail address:</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-glyphicon glyphicon-envelope"></i></span>
 						<input id="username" name="email" class="form-control" type="text" placeholder="E-mail address">
 					</div>
-					<label>Password:</label>
+                    <br>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-lock"></i></span>
 						<input id="password" name="password" class="form-control" type="password" placeholder="Password">
 					</div>
 				</form><br>
-				<p id="notification" class="text-center"></p>
+				<p id="notification" class="text-center"></p><br>
 				<button id="signIn" class="btn btn-primary btn-block" style="border: none; background: #2196f3;font-weight: 700">SIGN IN</button>
 				</div>
 			</div>

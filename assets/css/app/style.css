@@ -1,5 +1,5 @@
 body {
-    font-family: 'Open Sans', sans-serif!important;
+    font-family: 'Raleway', sans-serif!important;
 }
 
 .screen-title {
@@ -29,4 +29,8 @@ label {
 
 .page-content {
     background: unset!important;
+}
+
+table.dataTable.no-footer {
+    border-bottom: unset;
 }

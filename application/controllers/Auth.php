@@ -8,6 +8,8 @@ class Auth extends CORE_Controller
 	{
 		parent::__construct();
 		$this->load->model('Auth_model');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
 	}
 
 	public function index()
@@ -27,15 +29,29 @@ class Auth extends CORE_Controller
 	{
 		$m_auth = $this->Auth_model;
 
-		if ($m_auth->InsertUser()) {
-			$response['status'] = "success";
-			$response['message'] = "Successfully registered";
-		} else {
-			$response['status'] = "error";
-			$response['message'] = "Error occured while registering the user";
-		}
+		$this->form_validation->set_rules('first_name', 'First name', 'required');
+		$this->form_validation->set_rules('last_name', 'Last name', 'required');
+		$this->form_validation->set_rules('email', 'E-mail Address', 'required|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'min_length[8]');
+		$this->form_validation->set_rules('confirm_password', 'Confirm password', 'required|matches[password]');
 
-		echo json_encode($response);	
+		if ($this->form_validation->run() === FALSE) {
+			$response['status'] = "error";
+			$response['message'] = form_error('first_name').form_error('last_name').form_error('email').form_error('password').form_error('confirm_password');
+
+			echo json_encode($response);
+		} else {
+			if ($m_auth->InsertUser()) {
+				$response['status'] = "success";
+				$response['message'] = "Successfully registered";
+			} else {
+				$response['status'] = "error";
+				$response['message'] = "Error occurred while registering the user";
+			}
+			
+			header('Content-Type: application/json');
+            echo json_encode($response, JSON_PRETTY_PRINT);
+        }
 	}
 
 	public function update()
@@ -47,10 +63,11 @@ class Auth extends CORE_Controller
 			$response['message'] = "Successfully updated";
 		} else {
 			$response['status'] = "error";
-			$response['message'] = "Error occured while updating the user";
+			$response['message'] = "Error occurred while updating the user";
 		}
-
-		echo json_encode($response);	
+	
+		header('Content-Type: application/json');
+		echo json_encode($response, JSON_PRETTY_PRINT);	
 	}
 
 	public function delete()
@@ -65,6 +82,9 @@ class Auth extends CORE_Controller
 			$response['status'] = "error";
 			$response['message'] = "Error occured while deleting the user";
 		}
+
+		header('Content-Type: application/json');
+		echo json_encode($response, JSON_PRETTY_PRINT);
 	}
 
 	public function authenticate()
@@ -88,7 +108,8 @@ class Auth extends CORE_Controller
 		}
 		$response['password'] = $m_auth->password;
 
-		echo json_encode($response);
+		header('Content-Type: application/json');
+		echo json_encode($response, JSON_PRETTY_PRINT);
 	}
 
 	public function sign_out()
